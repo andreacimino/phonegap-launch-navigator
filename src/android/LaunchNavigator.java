@@ -381,28 +381,11 @@ public class LaunchNavigator extends CordovaPlugin {
             String sType = args.getString(4);
 
                 destLatLon = getLocationFromPos(args, 2);
-                try {
-                    destAddress = reverseGeocodeLatLonToAddress(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains address for coords '"+destLatLon+"': "+e.getMessage());
-                }
+              
             
-
-            if(sType.equals("name")){
-                startAddress = getLocationFromName(args, 5);
-                try {
-                    startLatLon = geocodeAddressToLatLon(args.getString(5));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+startAddress+"': "+e.getMessage());
-                }
-            }else if(sType.equals("pos")){
-                startLatLon = getLocationFromPos(args, 5);
-                try {
-                    startAddress = reverseGeocodeLatLonToAddress(args.getString(5));
-                }catch(Exception e){
-                    logError("Unable to obtains address for coords '"+startLatLon+"': "+e.getMessage());
-                }
-            }
+            startLatLon = getLocationFromPos(args, 5);
+            startAddress = reverseGeocodeLatLonToAddress(args.getString(5));
+           
 
             String url = "citymapper://directions?";
             String logMsg = "Using Citymapper to navigate to";
@@ -468,36 +451,21 @@ public class LaunchNavigator extends CordovaPlugin {
             String dType = args.getString(1);
             String sType = args.getString(4);
 
-            if(dType.equals("name")){
-                destAddress = getLocationFromName(args, 2);
-                try {
-                    destLatLon = geocodeAddressToLatLon(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+destAddress+"': "+e.getMessage());
-                }
-            }else{
+     
                 destLatLon = getLocationFromPos(args, 2);
                 try {
                     destAddress = reverseGeocodeLatLonToAddress(args.getString(2));
                 }catch(Exception e){
                     logError("Unable to obtains address for coords '"+destLatLon+"': "+e.getMessage());
-                }
             }
 
-            if(sType.equals("name")){
-                startAddress = getLocationFromName(args, 5);
-                try {
-                    startLatLon = geocodeAddressToLatLon(args.getString(5));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+startAddress+"': "+e.getMessage());
-                }
-            }else if(sType.equals("pos")){
+          
                 startLatLon = getLocationFromPos(args, 5);
                 try {
                     startAddress = reverseGeocodeLatLonToAddress(args.getString(5));
                 }catch(Exception e){
                     logError("Unable to obtains address for coords '"+startLatLon+"': "+e.getMessage());
-                }
+                
             }
 
             String url = "uber://?action=setPickup";
@@ -564,20 +532,12 @@ public class LaunchNavigator extends CordovaPlugin {
 
             String dType = args.getString(1);
 
-            if(dType.equals("name")){
-                destAddress = getLocationFromName(args, 2);
-                try {
-                    destLatLon = geocodeAddressToLatLon(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+destAddress+"': "+e.getMessage());
-                }
-            }else{
+ 
                 destLatLon = getLocationFromPos(args, 2);
                 try {
                     destAddress = reverseGeocodeLatLonToAddress(args.getString(2));
                 }catch(Exception e){
                     logError("Unable to obtains address for coords '"+destLatLon+"': "+e.getMessage());
-                }
             }
 
             String url = "waze://?";
@@ -623,27 +583,12 @@ public class LaunchNavigator extends CordovaPlugin {
             String dType = args.getString(1);
             String sType = args.getString(4);
 
-            if(dType.equals("name")){
-                destAddress = getLocationFromName(args, 2);
-                try {
-                    destLatLon = geocodeAddressToLatLon(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+destAddress+"': "+e.getMessage());
-                }
-            }else{
+       
                 destLatLon = getLocationFromPos(args, 2);
-            }
 
-            if(sType.equals("name")){
-                startAddress = getLocationFromName(args, 5);
-                try {
-                    startLatLon = geocodeAddressToLatLon(args.getString(5));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+startAddress+"': "+e.getMessage());
-                }
-            }else if(sType.equals("pos")){
+   
                 startLatLon = getLocationFromPos(args, 5);
-            }
+
 
             Intent intent = new Intent(supportedAppPackages.get(YANDEX)+".action.BUILD_ROUTE_ON_MAP");
             intent.setPackage(supportedAppPackages.get(YANDEX));
@@ -715,18 +660,9 @@ public class LaunchNavigator extends CordovaPlugin {
                 transportMode = "drive";
             }
 
-            if(dType.equals("name")){
-                destAddress = getLocationFromName(args, 2);
-                logMsg += " '"+destAddress+"'";
-                try {
-                    destLatLon = geocodeAddressToLatLon(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtain coords for address '"+destAddress+"': "+e.getMessage());
-                }
-            }else{
+     
                 destLatLon = getLocationFromPos(args, 2);
                 logMsg += " ["+destLatLon+"]";
-            }
 
             String[] pos = splitLatLon(destLatLon);
             url += pos[1]+"|"+pos[0]+"|"+transportMode;
@@ -775,18 +711,8 @@ public class LaunchNavigator extends CordovaPlugin {
                 logMsg += " Current Location";
 
             }else{
-                if(sType.equals("name")){
-                    startAddress = getLocationFromName(args, 5);
-                    logMsg += " '"+startAddress+"'";
-                    try {
-                        startLatLon = geocodeAddressToLatLon(args.getString(5));
-                    }catch(Exception e){
-                        logError("Unable to obtains coords for address '"+startAddress+"': "+e.getMessage());
-                    }
-                }else if(sType.equals("pos")){
-                    startLatLon = getLocationFromPos(args, 5);
-                }
-
+               
+                 startLatLon = getLocationFromPos(args, 5);
                 url += startLatLon;
                 logMsg += " ["+startLatLon+"]";
 
@@ -855,17 +781,8 @@ public class LaunchNavigator extends CordovaPlugin {
 
 
             logMsg += " to";
-            if(dType.equals("name")){
-                destAddress = getLocationFromName(args, 2);
-                logMsg += " '"+destAddress+"'";
-                try {
-                    destLatLon = geocodeAddressToLatLon(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+destAddress+"': "+e.getMessage());
-                }
-            }else{
+ 
                 destLatLon = getLocationFromPos(args, 2);
-            }
             logMsg += " ["+destLatLon+"]";
 
             String[] destPos = splitLatLon(destLatLon);
@@ -880,17 +797,8 @@ public class LaunchNavigator extends CordovaPlugin {
             if(sType.equals("none")){
                 logMsg += " Current Location";
             }else{
-                if(sType.equals("name")){
-                    startAddress = getLocationFromName(args, 5);
-                    logMsg += " '"+startAddress+"'";
-                    try {
-                        startLatLon = geocodeAddressToLatLon(args.getString(5));
-                    }catch(Exception e){
-                        logError("Unable to obtains coords for address '"+startAddress+"': "+e.getMessage());
-                    }
-                }else if(sType.equals("pos")){
+         
                     startLatLon = getLocationFromPos(args, 5);
-                }
 
                 String[] startPos = splitLatLon(startLatLon);
                 url += "&orig_lat=" + startPos[0] + "&orig_lon=" + startPos[1];
