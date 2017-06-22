@@ -380,21 +380,13 @@ public class LaunchNavigator extends CordovaPlugin {
             String dType = args.getString(1);
             String sType = args.getString(4);
 
-            if(dType.equals("name")){
-                destAddress = getLocationFromName(args, 2);
-                try {
-                    destLatLon = geocodeAddressToLatLon(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+destAddress+"': "+e.getMessage());
-                }
-            }else{
                 destLatLon = getLocationFromPos(args, 2);
                 try {
                     destAddress = reverseGeocodeLatLonToAddress(args.getString(2));
                 }catch(Exception e){
                     logError("Unable to obtains address for coords '"+destLatLon+"': "+e.getMessage());
                 }
-            }
+            
 
             if(sType.equals("name")){
                 startAddress = getLocationFromName(args, 5);
