@@ -53,10 +53,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 
 public class LaunchNavigator extends CordovaPlugin {
 
@@ -109,8 +105,6 @@ public class LaunchNavigator extends CordovaPlugin {
 
     PackageManager packageManager;
     Context context;
-
-    OkHttpClient httpClient = new OkHttpClient();
 
     boolean enableDebug = false;
 
@@ -1043,42 +1037,6 @@ public class LaunchNavigator extends CordovaPlugin {
         }
     }
 
-    private String geocodeAddressToLatLon(String address) throws Exception {
-        address = address.replaceAll(" ", "%20");
-
-        JSONObject oResponse = doGeocode("address=" + address);
-
-        double longitude = oResponse
-                .getJSONObject("geometry").getJSONObject("location")
-                .getDouble("lng");
-
-        double latitude = oResponse
-                .getJSONObject("geometry").getJSONObject("location")
-                .getDouble("lat");
-
-        String result = latitude+","+longitude;
-        logDebug("Geocoded '"+address+"' to '"+result+"'");
-        return result;
-    }
-
-    private String reverseGeocodeLatLonToAddress(String latLon) throws Exception {
-        JSONObject oResponse = doGeocode("latlng=" + latLon);
-        String result = oResponse.getString("formatted_address");
-        logDebug("Reverse geocoded '"+latLon+"' to '"+result+"'");
-        return result;
-    }
-
-    private JSONObject doGeocode(String query) throws Exception{
-        String url = "http://maps.google.com/maps/api/geocode/json?" + query + "&sensor=false";
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        Response response = httpClient.newCall(request).execute();
-        String responseBody = response.body().string();
-        JSONObject oResponse = new JSONObject(responseBody);
-        return ((JSONArray)oResponse.get("results")).getJSONObject(0);
-    }
 
     private boolean isNull(String arg){
         return arg == null || arg.equals("null");
