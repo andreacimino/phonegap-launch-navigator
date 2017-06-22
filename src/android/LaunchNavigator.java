@@ -521,12 +521,6 @@ public class LaunchNavigator extends CordovaPlugin {
 
  
                 destLatLon = getLocationFromPos(args, 2);
-                try {
-                    destAddress = reverseGeocodeLatLonToAddress(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains address for coords '"+destLatLon+"': "+e.getMessage());
-            }
-
             String url = "waze://?";
             String logMsg = "Using Waze to navigate to";
             if(!isNull(destLatLon)){
@@ -711,17 +705,7 @@ public class LaunchNavigator extends CordovaPlugin {
 
             url += "/";
             logMsg += " to";
-            if(dType.equals("name")){
-                destAddress = getLocationFromName(args, 2);
-                logMsg += " '"+destAddress+"'";
-                try {
-                    destLatLon = geocodeAddressToLatLon(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains coords for address '"+destAddress+"': "+e.getMessage());
-                }
-            }else{
-                destLatLon = getLocationFromPos(args, 2);
-            }
+             destLatLon = getLocationFromPos(args, 2);
             logMsg += " ["+destLatLon+"]";
             url += destLatLon;
 
