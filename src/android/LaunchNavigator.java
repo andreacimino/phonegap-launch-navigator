@@ -384,8 +384,7 @@ public class LaunchNavigator extends CordovaPlugin {
               
             
             startLatLon = getLocationFromPos(args, 5);
-            startAddress = reverseGeocodeLatLonToAddress(args.getString(5));
-           
+            
 
             String url = "citymapper://directions?";
             String logMsg = "Using Citymapper to navigate to";
