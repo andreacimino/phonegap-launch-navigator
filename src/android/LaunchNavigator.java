@@ -452,21 +452,9 @@ public class LaunchNavigator extends CordovaPlugin {
 
      
                 destLatLon = getLocationFromPos(args, 2);
-                try {
-                    destAddress = reverseGeocodeLatLonToAddress(args.getString(2));
-                }catch(Exception e){
-                    logError("Unable to obtains address for coords '"+destLatLon+"': "+e.getMessage());
-            }
-
-          
+      
                 startLatLon = getLocationFromPos(args, 5);
-                try {
-                    startAddress = reverseGeocodeLatLonToAddress(args.getString(5));
-                }catch(Exception e){
-                    logError("Unable to obtains address for coords '"+startLatLon+"': "+e.getMessage());
-                
-            }
-
+               
             String url = "uber://?action=setPickup";
             String logMsg = "Using Uber to navigate to";
             if(!isNull(destAddress)){
